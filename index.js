@@ -20,9 +20,10 @@ app.get("/perguntar", (req, res) => {
 });
 
 app.post('/salvarpergunta', (req, res) => {
-    res.send("Formulario recebido!");
+    var titulo = req.body.titulo;
+    var descicao = req.body.descricao;
+    res.send("Formulario recebido! " + titulo + " " + " " + " descricao " + descicao);
 });
-
 
 
 app.listen(PORT, () => {console.log("App started.");});
