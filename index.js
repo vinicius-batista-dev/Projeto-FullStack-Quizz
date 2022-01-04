@@ -15,10 +15,12 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
+    Pergunta.findAll().then(perguntas => { console.log(perguntas)});
     res.render("index");
 });
 
 app.get("/perguntar", (req, res) => {
+
     res.render("perguntar");
 });
 
@@ -29,7 +31,7 @@ app.post('/salvarpergunta', (req, res) => {
         titulo: titulo,
         descricao: descricao
     }).then(() => {
-        res.redirect("/")
+        res.redirect("/");
     });
 });
 
