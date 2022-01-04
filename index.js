@@ -25,7 +25,6 @@ app.get("/", (req, res) => {
 });
 
 app.get("/perguntar", (req, res) => {
-
     res.render("perguntar");
 });
 
@@ -40,5 +39,16 @@ app.post('/salvarpergunta', (req, res) => {
     });
 });
 
-
+app.get("/pergunta/:id", (req, res) => {
+    var id = req.params.id;
+    Pergunta.findAll({
+        where: {id: id}
+    }).then(pergunta => {
+        if(pergunta != undefined){
+            res.render("pergunta");
+        }else{
+            res.redirect("/");
+        }
+    });
+})
 app.listen(PORT, () => {console.log("App started.");});
