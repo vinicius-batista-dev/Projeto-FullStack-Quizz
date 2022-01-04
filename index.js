@@ -1,7 +1,9 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
+const conn = require('./database/database');
 
+conn.authenticate().then(() => {console.log("Conexao feita com o banco de dados!")}).catch((msgErro) => { console.log(msgErro);})
 
 const PORT = 3000;
 
