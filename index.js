@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const conn = require('./database/database');
 const Pergunta = require('./database/Pergunta');
+const Resposta = require('./database/Resposta');
 
 conn.authenticate().then(() => {console.log("Conexao feita com o banco de dados!")}).catch((msgErro) => { console.log(msgErro);})
 
@@ -41,11 +42,13 @@ app.post('/salvarpergunta', (req, res) => {
 
 app.get("/pergunta/:id", (req, res) => {
     var id = req.params.id;
-    Pergunta.findAll({
+    Pergunta.findOne({
         where: {id: id}
     }).then(pergunta => {
         if(pergunta != undefined){
-            res.render("pergunta");
+            res.render("pergunta", {
+                pergunta: pergunta
+            });
         }else{
             res.redirect("/");
         }
