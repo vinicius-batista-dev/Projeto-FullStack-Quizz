@@ -5,33 +5,45 @@ const conn = require('./database/database');
 const Pergunta = require('./database/Pergunta');
 const Resposta = require('./database/Resposta');
 
-conn.authenticate().then(() => {console.log("Conexao feita com o banco de dados!")}).catch((msgErro) => { console.log(msgErro);})
 
 const PORT = 3000;
 
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
+conn
+    .authenticate()
+    .then(() => {
+        console.log("Conexão feita com o banco de dados!")
+    })
+    .catch((msgErro) => {
+        console.log(msgErro);
+    })
 
-app.use(bodyParser.urlencoded({extended: false}))
+// Estou dizendo para o Express usar o EJS como View engine
+app.set('view engine','ejs');
+app.use(express.static('public'));
+// Body parser
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
+// Rotas
+app.get("/",(req, res) => {
     Pergunta.findAll({ raw: true, order:[
-        ['id', 'DESC']
-    ]}).then(perguntas => {  
-        res.render("index", {
-        perguntas: perguntas
+        ['id','DESC'] // ASC = Crescente || DESC = Decrescente
+    ]}).then(perguntas => {
+        res.render("index",{
+            perguntas: perguntas
+        });
     });
-  }); 
 });
 
-app.get("/perguntar", (req, res) => {
+app.get("/perguntar",(req, res) => {
     res.render("perguntar");
-});
+})
 
-app.post('/salvarpergunta', (req, res) => {
+app.post("/salvarpergunta",(req, res) => {
+
     var titulo = req.body.titulo;
     var descricao = req.body.descricao;
+
     Pergunta.create({
         titulo: titulo,
         descricao: descricao
@@ -40,30 +52,40 @@ app.post('/salvarpergunta', (req, res) => {
     });
 });
 
-app.get("/pergunta/:id", (req, res) => {
+app.get("/pergunta/:id",(req ,res) => {
     var id = req.params.id;
     Pergunta.findOne({
         where: {id: id}
     }).then(pergunta => {
-        if(pergunta != undefined){
-            res.render("pergunta", {
-                pergunta: pergunta
+        if(pergunta != undefined){ // Pergunta encontrada
+
+            Resposta.findAll({
+                where: {perguntaId: pergunta.id},
+                order:[ 
+                    ['id','DESC'] 
+                ]
+            }).then(respostas => {
+                res.render("pergunta",{
+                    pergunta: pergunta,
+                    respostas: respostas
+                });
             });
-        }else{
+
+        }else{ // Não encontrada
             res.redirect("/");
         }
     });
 })
 
-app.post("/responder" , (req, res) => {
+app.post("/responder",(req, res) => {
     var corpo = req.body.corpo;
     var perguntaId = req.body.pergunta;
     Resposta.create({
         corpo: corpo,
         perguntaId: perguntaId
     }).then(() => {
-        res.redirect("/pergunta/"+perguntaId)
+        res.redirect("/pergunta/"+perguntaId);
     });
 });
 
-app.listen(PORT, () => {console.log("App started.");});
+app.listen(PORT,()=>{console.log("App rodando!");})
