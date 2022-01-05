@@ -15,4 +15,3 @@
     node index.js
 
 
-![code](https://user-images.githubusercontent.com/89554544/148289242-da530076-1d66-4f2e-ab07-d8eece561b01.png)
