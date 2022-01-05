@@ -54,4 +54,7 @@ app.get("/pergunta/:id", (req, res) => {
         }
     });
 })
+
+app.post()
+
 app.listen(PORT, () => {console.log("App started.");});
