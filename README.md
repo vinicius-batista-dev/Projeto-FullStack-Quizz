@@ -1,4 +1,4 @@
-# perguntas-respostas
+# questions answers
 
 <p> This is simple project for Questions and Answers. </p>
 
