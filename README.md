@@ -1,4 +1,4 @@
-# questions answers
+# Quizz
 
 <p> This is simple project for Questions and Answers. </p>
 
