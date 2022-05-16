@@ -13,5 +13,19 @@
 ## Depois de instalar os pacotes é so iniciar
 
     node index.js
+    
+## Injecao no banco de dados 
+### Essa é uma funcao que vai criar o nome da tabela juntamente com as colunas título, e a descrição
+
+const Pergunta = conn.define('pergunta', {
+    titulo:{
+        type: sequelize.STRING,
+        allowNull: false
+    },
+    descricao: {
+        type: sequelize.TEXT,
+        allowNull: false
+    }
+});
 
 
