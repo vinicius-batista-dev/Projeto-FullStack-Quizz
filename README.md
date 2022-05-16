@@ -1,16 +1,16 @@
 # Quizz
 
-<p> This is simple project for Questions and Answers. </p>
+<p> Este é um simples projeto que tem o principal objetivo de perguntas e respostas. </p>
 
-## clone this project in your terminal 
+## Clona o projeto na sua maquina
 
     git clone https://github.com/vinicius-batista-dev/perguntas-respostas.git
 
-## After install package
+## Logo em seguida instala os pacotes
 
     npm install
 
-## started the project
+## Depois de instalar os pacotes é so iniciar
 
     node index.js
 
