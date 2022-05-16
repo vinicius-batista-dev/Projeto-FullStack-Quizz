@@ -17,7 +17,7 @@
 ## Injecao no banco de dados 
 ### Essa é uma funcao que vai criar o nome da tabela juntamente com as colunas título, e a descrição
 
-const Pergunta = conn.define('pergunta', {
+    const Pergunta = conn.define('pergunta', {
     titulo:{
         type: sequelize.STRING,
         allowNull: false
@@ -25,7 +25,7 @@ const Pergunta = conn.define('pergunta', {
     descricao: {
         type: sequelize.TEXT,
         allowNull: false
-    }
-});
+        }
+    });
 
 
